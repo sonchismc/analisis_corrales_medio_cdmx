@@ -101,7 +101,7 @@ ggplot(data, aes(x = tiempo_chip)) +
        x = "Tiempo Chip",
        y = "Frequency") +
   theme_classic() +
-  facet_wrap(~categoria)
+  facet_wrap(~categoria, ncol = 1)
 ```
 
 
@@ -145,11 +145,21 @@ ggplot(data_to_plot,
     plot.background = element_rect(fill = "white", color = NA),
     plot.margin = margin(10, 10, 10, 10)
   ) +
-  ggtitle("Corrales Libre Femenil") +
+  ggtitle("Corrales") +
   annotate("text", x = .9, y = -200, label = "corral donde salieron", size = 4, hjust = 0) +
   annotate("text", x = 2.2, y = -200, label = "corral donde debían salir", size = 4, hjust = 1)
 
 ```
+```{r}
+data %>% 
+  group_by(corral_salida) %>% 
+  count() %>% 
+  ungroup() %>% 
+  mutate(total = sum(n),
+         porc = n/total)
+```
+
+
 
 ```{r}
 data %>% 
